@@ -18,7 +18,6 @@ import java.util.Objects;
 @AllArgsConstructor
 @Builder
 @Entity
-@NoArgsConstructor
 @Table(name = "_user")
 public class User implements UserDetails {
 
