@@ -1,5 +1,6 @@
 package com.semicolonafrica.security.config;
 
+import com.semicolonafrica.security.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,7 +11,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -35,8 +35,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String userEmail;
         if (authHeader == null || !authHeader.startsWith("Bearer ")){
             filterChain.doFilter(request, response);
+            return;
         }
-        assert authHeader != null;
         jwt = authHeader.substring(7);
         userEmail = jwtService.extractUserName(jwt);
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null){
