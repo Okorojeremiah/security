@@ -1,4 +1,4 @@
-package com.semicolonafrica.security.config;
+package com.semicolonafrica.security.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -17,7 +17,7 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY = "4D6251655468576D597133743677397A24432646294A404E635266556A586E32";
+    private static final String SECRET_KEY = System.getenv("SECRET_KEY");
     public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);
     }
